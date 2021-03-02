@@ -1,0 +1,22 @@
+{
+    "name": "megachriz/listconvert",
+    "description": "Converts html numbered lists to plain text.",
+    "license": "GPL-3.0",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Youri van Koppen",
+            "email": "megachriz@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "voku/html2text": "^5.0",
+        "voku/simple_html_dom": "^4.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "megachriz\\ListConvert\\": "src/"
+        }
+    }
+}
