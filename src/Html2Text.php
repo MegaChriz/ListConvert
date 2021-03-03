@@ -58,8 +58,9 @@ class Html2Text extends Html2TextBase {
         continue;
       }
 
-      if ($child->getAttribute('value')) {
-        $index = $child->getAttribute('value');
+      $value = $child->getAttribute('value');
+      if (!empty($value) && is_numeric($value)) {
+        $index = (int) $value;
       }
       else {
         $index++;
@@ -115,15 +116,20 @@ class Html2Text extends Html2TextBase {
    *   The HTML, where lists a replaced with a comma separated string of item markers.
    */
   public function getListSummary() {
-    $text = $this->html;
-
-    $dom = HtmlDomParser::str_get_html($text);
+    $dom = HtmlDomParser::str_get_html($this->html);
+    // Convert text back to html.
+    $text = $dom->outerHtml();
     foreach ($dom->find('ol,ul') as $list) {
       $ol = $this->parseList($list);
       $find = $list->outerHtml();
 
       $numbers = $this->getItemMarkersFromList($ol);
-      $replace = '<p>' . implode(', ', $numbers) . '</p>';
+      if (!empty($numbers)) {
+        $replace = '<p>' . implode(', ', $numbers) . '</p>';
+      }
+      else {
+        $replace = '';
+      }
 
       $text = str_replace($find, $replace, $text);
     }
@@ -168,6 +174,9 @@ class Html2Text extends Html2TextBase {
                 case OrderedList::TYPE_ROMAN_UC:
                   $number .= '-';
                   break;
+              }
+              if ($ol->getType() == $list->getType()) {
+                $number .= '-';
               }
               break;
           }
