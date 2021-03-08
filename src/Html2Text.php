@@ -49,7 +49,10 @@ class Html2Text extends Html2TextBase {
 
     $ol = new OrderedList($type);
 
-    $index = 0;
+    // Check if the list starts at a specific number.
+    $start = $list->getAttribute('start');
+    $index = $start ? $start -1 : 0;
+
     foreach ($list->childNodes() as $child) {
       if (!$child->getNode() instanceof \DOMElement) {
         continue;
