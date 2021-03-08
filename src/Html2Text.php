@@ -134,7 +134,7 @@ class Html2Text extends Html2TextBase {
 
       $numbers = $this->getItemMarkersFromList($ol);
       if (!empty($numbers)) {
-        $replace = '<p>' . implode(', ', $numbers) . '</p>';
+        $replace = '<p class="list-summary">' . implode(', ', $numbers) . '</p>';
       }
       else {
         $replace = '';
