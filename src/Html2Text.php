@@ -122,7 +122,8 @@ class Html2Text extends Html2TextBase {
    * Replaces lists in text with summary of the list items.
    *
    * @return string
-   *   The HTML, where lists a replaced with a comma separated string of item markers.
+   *   The HTML, where lists are replaced with a comma separated string of item
+   *   markers.
    */
   public function getListSummary() {
     $dom = HtmlDomParser::str_get_html($this->html);
