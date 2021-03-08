@@ -15,6 +15,13 @@ class ListItem {
   private $index;
 
   /**
+   * The type of this list item, if different from the list.
+   *
+   * @var string
+   */
+  private $overriddenType;
+
+  /**
    * A series of child lists.
    *
    * @var \megachriz\ListConvert\OrderedList[]
@@ -80,6 +87,28 @@ class ListItem {
    */
   public function getValue(): string {
     return $this->value;
+  }
+
+  /**
+   * Sets the list type for this item.
+   *
+   * @param string $type
+   *   The type of list.
+   */
+  public function setType(string $type) {
+    $this->overriddenType = $type;
+  }
+
+  /**
+   * Returns the list type of this list item.
+   *
+   * Can be empty if no type for the item has been set.
+   *
+   * @return string|null
+   *   The type of list, if set. Null otherwise.
+   */
+  public function getType() {
+    return $this->overriddenType;
   }
 
   /**

@@ -98,6 +98,12 @@ class Html2Text extends Html2TextBase {
 
     $item->setValue($html);
 
+    // Override the type of list, if it has one.
+    $type = $list_item->getAttribute('type');
+    if ($type) {
+      $item->setType($type);
+    }
+
     foreach ($list_item->childNodes() as $child) {
       if (!$child->getNode() instanceof \DOMElement) {
         continue;
@@ -157,7 +163,8 @@ class Html2Text extends Html2TextBase {
     $numbers = [];
 
     foreach ($ol->getItems() as $index => $item) {
-      $number = $ol->renderIndex($index);
+      $type = $item->getType() ?? $ol->getType();
+      $number = $ol->renderIndex($index, $type);
       $lists = $item->getLists();
       if (empty($lists)) {
         $numbers[] = $number;

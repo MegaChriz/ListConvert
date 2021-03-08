@@ -100,8 +100,11 @@ class OrderedList {
     $indent = '';
     $indent = str_pad($indent, $level * 2, ' ', STR_PAD_LEFT);
     foreach ($this->items as $index => $item) {
+      // Get type from item, if it has one.
+      $type = $item->getType() ?? $this->type;
+
       $result .= $indent;
-      $result .= $this->renderIndex($index);
+      $result .= $this->renderIndex($index, $type);
       if ($this->type != static::TYPE_UNORDERED) {
         $result .= '.';
       }
@@ -117,12 +120,14 @@ class OrderedList {
    *
    * @param int $index
    *   The index number to render.
+   * @param string $type
+   *   The index type.
    *
    * @return string
    *   The rendered index number.
    */
-  public function renderIndex(int $index): string {
-    switch ($this->type) {
+  public function renderIndex(int $index, $type): string {
+    switch ($type) {
       case static::TYPE_ALPHA:
         return strtolower($this->num2alpha($index));
 
